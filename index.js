@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', socket => {
-  socket.emit('me', socket.id);
+  socket.emit('mydevice', socket.id);
 
   socket.on('disconnect', () => {
     socket.broadcast.emit('callended');
@@ -30,7 +30,7 @@ io.on('connection', socket => {
     io.to(userToCall).emit('callUser', { signal: signalData, from, name });
   });
 
-  socket.on('answecall', data => {
+  socket.on('answercall', data => {
     io.to(data.to).emit('callaccepted', data.signal);
   });
 });

@@ -11,6 +11,7 @@ const ContextProvider = ({ children }) => {
   const [call, setCall] = useState({});
   const [isCallAccepted, setIsCallAccepted] = useState(false);
   const [isCallEnded, setIsCallEnded] = useState(false);
+  const [name, setName] = useState('');
 
   const myVideoRef = useRef();
   const otherUserVideoRef = useRef();
@@ -31,7 +32,7 @@ const ContextProvider = ({ children }) => {
     });
   }, []);
 
-  const callUser = () => {
+  const answerCall = () => {
     setIsCallAccepted(true);
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
@@ -48,7 +49,57 @@ const ContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
-  const answerCall = () => {};
+  const callUser = (id) => {
+    /* Settinng initiator to true because we're the calling party */
+    const peer = new Peer({ initiator: true, trickle: false, stream });
 
-  const terminateCall = () => {};
+    peer.on('signal', (data) => {
+      socket.emit('calluser', {
+        userToCall: id,
+        signalData: data,
+        from: myDevice,
+        name,
+      });
+    });
+
+    peer.on('currentStream', (currentStream) => {
+      otherUserVideoRef.current.srcObject = currentStream;
+    });
+
+    socket.on('callaccepted', (signal) => {
+      setIsCallAccepted(true);
+      peer.signal(signal);
+    });
+
+    connectionRef.current = peer;
+  };
+
+  const terminateCall = () => {
+    setIsCallEnded(true);
+    connectionRef.current.destroy();
+    window.location.reload();
+  };
+
+  return (
+    <SocketContext.Provider
+      value={{
+        call,
+        isCallAccepted,
+        myVideoRef,
+        otherUserVideoRef,
+        stream,
+        name,
+        setName,
+        isCallEnded,
+        myDevice,
+        answerCall,
+        callUser,
+        terminateCall,
+      }}
+    >
+      {children}
+    </SocketContext.Provider>
+  );
 };
+
+export { ContextProvider, SocketContext };

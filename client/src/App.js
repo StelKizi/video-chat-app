@@ -1,9 +1,9 @@
 import { Typography, AppBar } from '@material-ui/core';
-import Options from './components/Options';
 import VideoPlayer from './components/VideoPlayer';
+import Options from './components/Options';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     borderRadius: 15,
     margin: '30px 100px',

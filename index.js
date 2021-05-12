@@ -20,21 +20,21 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  socket.emit('mydevice', socket.id);
+  socket.emit('my-device', socket.id);
 
   socket.on('disconnect', () => {
     socket.broadcast.emit('callended');
   });
 
-  socket.on('calluser', ({ userToCall, signalData, from, name }) => {
-    io.to(userToCall).emit('callUser', { signal: signalData, from, name });
+  socket.on('call-user', ({ userToCall, signalData, from, name }) => {
+    io.to(userToCall).emit('call-user', { signal: signalData, from, name });
   });
 
-  socket.on('answercall', (data) => {
-    io.to(data.to).emit('callaccepted', data.signal);
+  socket.on('answer-call', (data) => {
+    io.to(data.to).emit('call-accepted', data.signal);
   });
 });
 
 server.listen(PORT, () => {
-  console.log('Server listening on port', PORT);
+  console.log('Server listening on port ', PORT);
 });

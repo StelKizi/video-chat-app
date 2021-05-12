@@ -56,21 +56,23 @@ const VideoPlayer = () => {
 
       {/* Other video */}
 
-      {isCallAccepted && !isCallEnded && (
-        <Paper className={classes.paper}>
-          <Grid item xs={12} md={6}>
-            <Typography variant='h5' gutterBottom>
-              {call.name || 'Name'}
-            </Typography>
-            <video
-              playsInline
-              ref={otherUserVideoRef}
-              autoPlay
-              className={classes.video}
-            />
-          </Grid>
-        </Paper>
-      )}
+      {
+        /* isCallAccepted && */ !isCallEnded && (
+          <Paper className={classes.paper}>
+            <Grid item xs={12} md={6}>
+              <Typography variant='h5' gutterBottom>
+                {call.name || 'Name'}
+              </Typography>
+              <video
+                playsInline
+                ref={otherUserVideoRef}
+                autoPlay
+                className={classes.video}
+              />
+            </Grid>
+          </Paper>
+        )
+      }
     </Grid>
   );
 };

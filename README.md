@@ -1,6 +1,6 @@
 # video-chat-app
 A google meet/zoom clone, video chat app.
-Check out the project here: [Video chat app](https://video-chat-clone-app.netlify.app/)
+Check out the project here: [Video Chat App](https://video-chat-clone-app.netlify.app/)
 
 ## Technologies that were used for this project:
 - [React](https://reactjs.org/)

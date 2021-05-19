@@ -89,7 +89,7 @@ const Options = () => {
                 Make a call
               </Typography>
               <TextField
-                label='Id to call'
+                label="Paste user's ID"
                 value={idToCall}
                 onChange={(e) => setIdToCall(e.target.value)}
                 fullWidth

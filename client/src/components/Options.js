@@ -72,6 +72,7 @@ const Options = () => {
                 onChange={(e) => setName(e.target.value)}
                 fullWidth
               />
+              {console.log(myDevice)}
               <CopyToClipboard text={myDevice} className={classes.margin}>
                 <Button
                   variant='contained'
@@ -111,7 +112,7 @@ const Options = () => {
                     color='primary'
                     startIcon={<Phone fontSize='large' />}
                     fullWidth
-                    onClick={(idToCall) => callUser(idToCall)}
+                    onClick={() => callUser(idToCall)}
                     className={classes.margin}
                   >
                     Start Call
